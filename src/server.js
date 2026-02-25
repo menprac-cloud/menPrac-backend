@@ -10,7 +10,6 @@ const cookieParser = require("cookie-parser");
 
 // --- CONTROLLERS & MIDDLEWARE ---
 const aiController = require("./controllers/aiController");
-// Make sure you actually have this authMiddleware file!
 const authMiddleware = require("./middleware/authMiddleware");
 
 // --- 1. INITIALIZE APP ---
@@ -29,6 +28,7 @@ const io = new Server(server, {
       "http://localhost:3001",
       "https://men-prac-frontend.vercel.app",
       "https://menprac.com",
+      "https://www.menprac.com", // 🚨 ADDED WWW SUBDOMAIN
     ],
     credentials: true,
   },
@@ -40,7 +40,7 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
 
-// 🚨 CRITICAL FIX 2: Added Vercel URL to Express CORS 🚨
+// 🚨 CRITICAL FIX 2: Added all domains to Express CORS 🚨
 app.use(
   cors({
     origin: [
@@ -48,6 +48,7 @@ app.use(
       "http://localhost:3001",
       "https://men-prac-frontend.vercel.app",
       "https://menprac.com",
+      "https://www.menprac.com", // 🚨 ADDED WWW SUBDOMAIN
     ],
     credentials: true,
   }),
